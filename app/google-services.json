@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "970820452201",
+    "firebase_url": "https://huaweiapplication-d1cd9.firebaseio.com",
+    "project_id": "huaweiapplication-d1cd9",
+    "storage_bucket": "huaweiapplication-d1cd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970820452201:android:633d32c86f2c7f5d",
+        "android_client_info": {
+          "package_name": "com.mrntlu.huaweiapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970820452201-bsp93s0sonaj6f16die195hgidlm4akl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mrntlu.huaweiapplication",
+            "certificate_hash": "0c69ce2509ac5e73054cfa24fed328cf740db459"
+          }
+        },
+        {
+          "client_id": "970820452201-4su3t3tt8fkf770jf9plqvevn0v6pblc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABjncYjdkE7EESFGceqchpmaNf7AZ0vNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970820452201-4su3t3tt8fkf770jf9plqvevn0v6pblc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
