@@ -1,4 +1,4 @@
-package com.mrntlu.huaweiapplication.adapters.todolist;
+package com.mrntlu.huaweiapplication.adapters.todoitem;
 
 import android.graphics.Canvas;
 import android.view.View;
@@ -8,11 +8,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerTodoListTouchHelper extends ItemTouchHelper.SimpleCallback {
+public class RecyclerTodoItemTouchHelper extends ItemTouchHelper.SimpleCallback{
 
     private RecyclerItemTouchHelperListener listener;
 
-    public RecyclerTodoListTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener) {
+    public RecyclerTodoItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener) {
         super(dragDirs, swipeDirs);
         this.listener = listener;
     }
@@ -24,32 +24,32 @@ public class RecyclerTodoListTouchHelper extends ItemTouchHelper.SimpleCallback 
 
     @Override
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-        if (viewHolder instanceof TodoListRecyclerAdapter.TodoListViewHolder){
-            View foregroundView=((TodoListRecyclerAdapter.TodoListViewHolder)viewHolder).foregroundCell;
+        if (viewHolder instanceof TodoItemRecyclerAdapter.TodoItemViewHolder){
+            View foregroundView=((TodoItemRecyclerAdapter.TodoItemViewHolder)viewHolder).foregroundCell;
             getDefaultUIUtil().onSelected(foregroundView);
         }
     }
 
     @Override
     public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if (viewHolder instanceof TodoListRecyclerAdapter.TodoListViewHolder) {
-            View foregroundView = ((TodoListRecyclerAdapter.TodoListViewHolder) viewHolder).foregroundCell;
+        if (viewHolder instanceof TodoItemRecyclerAdapter.TodoItemViewHolder) {
+            View foregroundView = ((TodoItemRecyclerAdapter.TodoItemViewHolder) viewHolder).foregroundCell;
             getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
         }
     }
 
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-        if (viewHolder instanceof TodoListRecyclerAdapter.TodoListViewHolder) {
-            View foregroundView = ((TodoListRecyclerAdapter.TodoListViewHolder) viewHolder).foregroundCell;
+        if (viewHolder instanceof TodoItemRecyclerAdapter.TodoItemViewHolder) {
+            View foregroundView = ((TodoItemRecyclerAdapter.TodoItemViewHolder) viewHolder).foregroundCell;
             getDefaultUIUtil().clearView(foregroundView);
         }
     }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if (viewHolder instanceof TodoListRecyclerAdapter.TodoListViewHolder) {
-            View foregroundView = ((TodoListRecyclerAdapter.TodoListViewHolder) viewHolder).foregroundCell;
+        if (viewHolder instanceof TodoItemRecyclerAdapter.TodoItemViewHolder){
+            View foregroundView = ((TodoItemRecyclerAdapter.TodoItemViewHolder) viewHolder).foregroundCell;
             getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
         }
     }

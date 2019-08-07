@@ -23,8 +23,12 @@ public class TodoViewModel extends AndroidViewModel {
         return todoRepository.getTodoLists();
     }
 
-    public LiveData<List<TodoItem>> getTodoItems(String todoListId){
-        return todoRepository.getTodoItems(todoListId);
+    public LiveData<List<TodoItem>> getTodoItems(String todoListId, TodoItem.TodoStatus todoStatus,int parameter){
+        return todoRepository.getTodoItems(todoListId,todoStatus,parameter);
+    }
+
+    public LiveData<List<TodoItem>> getTodoItemsByName(String todoListId,String name){
+        return todoRepository.getTodoItemsByName(todoListId,name);
     }
 
     public Completable insertTodoList(TodoList todoList){

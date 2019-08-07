@@ -31,7 +31,8 @@ public class TodoItem implements Parcelable {
 
     public enum TodoStatus{
         FINISHED(0),
-        ONGOING(1);
+        ONGOING(1),
+        EXPIRED(2);
 
         private int code;
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Order By">
+        <menu>
+            <item
+                android:title="Create Date"
+                app:showAsAction="ifRoom"
+                android:id="@+id/order_create_date"/>
+            <item
+                android:title="Deadline"
+                app:showAsAction="ifRoom"
+                android:id="@+id/order_deadline"/>
+            <item
+                android:title="Name"
+                app:showAsAction="ifRoom"
+                android:id="@+id/order_name"/>
+            <item
+                android:title="Status"
+                app:showAsAction="ifRoom"
+                android:id="@+id/order_status"/>
+        </menu>
+    </item>
+
+    <item android:title="Filter By">
+        <menu>
+            <item
+                android:title="Complete"
+                app:showAsAction="ifRoom"
+                android:id="@+id/filter_complete"/>
+            <item
+                android:title="Ongoing"
+                app:showAsAction="ifRoom"
+                android:id="@+id/filter_ongoing"/>
+            <item
+                android:title="Expired"
+                app:showAsAction="ifRoom"
+                android:id="@+id/filter_expired"/>
+            <item
+                android:title="Name"
+                app:showAsAction="ifRoom"
+                android:id="@+id/filter_name"/>
+        </menu>
+    </item>
+</menu>

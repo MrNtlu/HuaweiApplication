@@ -4,7 +4,9 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -19,15 +21,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mrntlu.huaweiapplication.R;
 import com.mrntlu.huaweiapplication.adapters.todolist.RecyclerTodoListTouchHelper;
 import com.mrntlu.huaweiapplication.adapters.todolist.TodoListRecyclerAdapter;
-import com.mrntlu.huaweiapplication.callbacks.TodoItemClickedCallback;
+import com.mrntlu.huaweiapplication.callbacks.TodoListClickedCallback;
 import com.mrntlu.huaweiapplication.models.TodoList;
+import com.mrntlu.huaweiapplication.persistance.TodoDatabase;
 import com.mrntlu.huaweiapplication.viewmodels.TodoViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
 
-public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelper.RecyclerItemTouchHelperListener, TodoItemClickedCallback {
+public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelper.RecyclerItemTouchHelperListener, TodoListClickedCallback {
 
     @BindView(R.id.todoListRV)
     RecyclerView todoListRV;
@@ -37,9 +40,9 @@ public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelpe
 
     private TodoViewModel todoViewModel;
     private TodoListRecyclerAdapter adapter;
+    private FragmentTransaction fragmentTransaction;
 
-    public FragmentTodo() {
-    }
+    public FragmentTodo() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +55,10 @@ public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelpe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fragmentTransaction=((AppCompatActivity)view.getContext()).getSupportFragmentManager().beginTransaction();
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
         adapter=new TodoListRecyclerAdapter();
-
+        //view.getContext().deleteDatabase(TodoDatabase.DATABASE_NAME);
         initRecyclerView();
         setupObservers();
         setListeners();
@@ -63,7 +67,7 @@ public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelpe
     private void setListeners(){
         addFab.setOnClickListener(view -> {
             //todo Open add dialog
-            todoViewModel.insertTodoList(new TodoList("Todo "+adapter.getItemCount()+1)).subscribe(new CompletableObserver() {
+            todoViewModel.insertTodoList(new TodoList("Todo "+adapter.getItemCount()+2)).subscribe(new CompletableObserver() {
                 @Override
                 public void onSubscribe(Disposable d) {
 
@@ -85,7 +89,7 @@ public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelpe
     }
 
     private void initRecyclerView() {
-        adapter.setTodoItemClickedCallback(this);
+        adapter.setTodoListClickedCallback(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         todoListRV.setLayoutManager(linearLayoutManager);
         todoListRV.addItemDecoration(new DividerItemDecoration(todoListRV.getContext(), DividerItemDecoration.VERTICAL));
@@ -114,12 +118,15 @@ public class FragmentTodo extends Fragment implements RecyclerTodoListTouchHelpe
 
     @Override
     public void onSwipe(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        TodoList todoList=adapter.removeTodoList(position);
-        todoViewModel.deleteTodoList(todoList).subscribe();
+        if (viewHolder instanceof TodoListRecyclerAdapter.TodoListViewHolder) {
+            TodoList todoList = adapter.removeTodoList(position);
+            todoViewModel.deleteTodoList(todoList).subscribe();
+        }
     }
 
     @Override
     public void onTodoItemClicked(TodoList todoList) {
-        Toast.makeText(getContext(), todoList.getName()+" clicked!", Toast.LENGTH_SHORT).show();
+        fragmentTransaction.replace(R.id.frameLayout,new FragmentTodoItems(todoList)).addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

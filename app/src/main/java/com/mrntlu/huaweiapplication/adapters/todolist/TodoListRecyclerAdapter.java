@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mrntlu.huaweiapplication.R;
 import com.mrntlu.huaweiapplication.adapters.viewholders.LoadingItemViewHolder;
 import com.mrntlu.huaweiapplication.adapters.viewholders.NoItemViewHolder;
-import com.mrntlu.huaweiapplication.callbacks.TodoItemClickedCallback;
+import com.mrntlu.huaweiapplication.callbacks.TodoListClickedCallback;
 import com.mrntlu.huaweiapplication.models.TodoList;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private boolean isAdapterSet=false;
     private List<TodoList> todoLists;
-    private TodoItemClickedCallback todoItemClickedCallback;
+    private TodoListClickedCallback todoListClickedCallback;
 
     @NonNull
     @Override
@@ -49,7 +49,7 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             TodoList todoList=todoLists.get(position);
 
             ((TodoListViewHolder) holder).todoListNameText.setText(todoList.getName());
-            holder.itemView.setOnClickListener(view -> todoItemClickedCallback.onTodoItemClicked(todoList));
+            holder.itemView.setOnClickListener(view -> todoListClickedCallback.onTodoItemClicked(todoList));
         }else if (holder instanceof NoItemViewHolder){
             ((NoItemViewHolder) holder).noItemText.setText("Nothing found!");
         }
@@ -67,8 +67,8 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
-    public void setTodoItemClickedCallback(TodoItemClickedCallback todoItemClickedCallback) {
-        this.todoItemClickedCallback = todoItemClickedCallback;
+    public void setTodoListClickedCallback(TodoListClickedCallback todoListClickedCallback) {
+        this.todoListClickedCallback = todoListClickedCallback;
     }
 
     @Override

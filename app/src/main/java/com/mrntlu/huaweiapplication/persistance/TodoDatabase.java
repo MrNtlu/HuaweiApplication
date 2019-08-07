@@ -9,10 +9,11 @@ import androidx.room.TypeConverters;
 
 import com.mrntlu.huaweiapplication.models.TodoItem;
 import com.mrntlu.huaweiapplication.models.TodoList;
+import com.mrntlu.huaweiapplication.models.converters.DateConverter;
 import com.mrntlu.huaweiapplication.models.converters.TodoStatusConverter;
 
-@Database(entities = {TodoList.class, TodoItem.class}, version = 1)
-@TypeConverters({TodoStatusConverter.class})
+@Database(entities = {TodoList.class, TodoItem.class}, version = 2)
+@TypeConverters({TodoStatusConverter.class, DateConverter.class})
 public abstract class TodoDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME="todo_db";
