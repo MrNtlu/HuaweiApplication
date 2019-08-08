@@ -16,19 +16,22 @@ import java.util.List;
 @Dao
 public abstract class TodoDao {
 //GET
-    @Query("select * from todoList")
+    @Query("SELECT * FROM todoList")
     public abstract LiveData<List<TodoList>> getTodoLists();
 
-    @Query("select * from todoItem where todoList_id like :todoListId AND status like :status order by " +
-            "case :parameter " +
-            "when 1 then created_at " +
-            "when 2 then deadline " +
-            "when 3 then name " +
-            "when 4 then status end DESC")
-    public abstract LiveData<List<TodoItem>> getTodoItems(String todoListId,TodoItem.TodoStatus status,int parameter);
+    @Query("SELECT * FROM todoItem WHERE todoList_id LIKE :todoListId AND " +
+            "CASE :filterby " +
+            "WHEN 1 THEN status LIKE :status " +
+            "ELSE name LIKE '%' || :name || '%' END " +
+            "ORDER BY CASE :orderby " +
+            "WHEN 1 THEN created_at " +
+            "WHEN 2 THEN deadline " +
+            "WHEN 3 THEN name " +
+            "WHEN 4 THEN status END ASC")
+    public abstract LiveData<List<TodoItem>> getTodoItems(String todoListId,TodoItem.TodoStatus status,String name,int filterby,int orderby);
 
-    @Query("select * from todoItem where todoList_id like :todoListId AND name like '%' || :name || '%'")
-    public abstract LiveData<List<TodoItem>> getTodoItemsByName(String todoListId,String name);
+    @Query("SELECT * FROM todoItem WHERE todoList_id LIKE :todoListId")
+    public abstract LiveData<List<TodoItem>> getAllTodoItems(String todoListId);
 
 //INSERT
     @Transaction

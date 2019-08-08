@@ -63,7 +63,11 @@ public class TodoItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
             viewHolder.descriptionText.setText(todoItem.getDescription());
             viewHolder.nameText.setText(todoItem.getName());
             viewHolder.completeCheckBox.setChecked(TodoItem.TodoStatus.FINISHED==todoItem.getStatus());
-            viewHolder.foregroundCell.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(),todoItem.getStatus()!= TodoItem.TodoStatus.ONGOING?R.color.gray:android.R.color.white));
+            int color;
+            if (todoItem.getStatus()== TodoItem.TodoStatus.ONGOING) color=android.R.color.white;
+            else if (todoItem.getStatus()== TodoItem.TodoStatus.FINISHED)color=R.color.gray;
+            else color=android.R.color.holo_blue_light;
+            viewHolder.foregroundCell.setBackgroundColor(ContextCompat.getColor(viewHolder.itemView.getContext(),color));
 
             viewHolder.completeCheckBox.setOnCheckedChangeListener((compoundButton, b) -> {
                 if (compoundButton.isPressed()) {

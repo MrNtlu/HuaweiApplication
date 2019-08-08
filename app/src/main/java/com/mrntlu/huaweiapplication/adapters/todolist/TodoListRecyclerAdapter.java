@@ -3,6 +3,7 @@ package com.mrntlu.huaweiapplication.adapters.todolist;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.mrntlu.huaweiapplication.R;
 import com.mrntlu.huaweiapplication.adapters.viewholders.LoadingItemViewHolder;
 import com.mrntlu.huaweiapplication.adapters.viewholders.NoItemViewHolder;
 import com.mrntlu.huaweiapplication.callbacks.TodoListClickedCallback;
+import com.mrntlu.huaweiapplication.callbacks.TodoListExportClickedCallback;
 import com.mrntlu.huaweiapplication.models.TodoList;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     private boolean isAdapterSet=false;
     private List<TodoList> todoLists;
     private TodoListClickedCallback todoListClickedCallback;
+    private TodoListExportClickedCallback todoListExportClickedCallback;
 
     @NonNull
     @Override
@@ -50,6 +53,8 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             ((TodoListViewHolder) holder).todoListNameText.setText(todoList.getName());
             holder.itemView.setOnClickListener(view -> todoListClickedCallback.onTodoItemClicked(todoList));
+
+            ((TodoListViewHolder) holder).exportButton.setOnClickListener(view -> todoListExportClickedCallback.onExportClicked(todoList));
         }else if (holder instanceof NoItemViewHolder){
             ((NoItemViewHolder) holder).noItemText.setText("Nothing found!");
         }
@@ -67,8 +72,9 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
-    public void setTodoListClickedCallback(TodoListClickedCallback todoListClickedCallback) {
+    public void setCallbacks(TodoListClickedCallback todoListClickedCallback, TodoListExportClickedCallback expiredClickedCallback) {
         this.todoListClickedCallback = todoListClickedCallback;
+        this.todoListExportClickedCallback =expiredClickedCallback;
     }
 
     @Override
@@ -88,6 +94,9 @@ public class TodoListRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         @BindView(R.id.foregroundCell)
         ConstraintLayout foregroundCell;
+
+        @BindView(R.id.exportButton)
+        ImageButton exportButton;
 
         TodoListViewHolder(@NonNull View itemView) {
             super(itemView);

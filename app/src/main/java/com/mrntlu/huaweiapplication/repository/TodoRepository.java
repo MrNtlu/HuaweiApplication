@@ -28,12 +28,12 @@ public class TodoRepository {
         return todoDao.getTodoLists();
     }
 
-    public LiveData<List<TodoItem>> getTodoItems(String todoListId, TodoItem.TodoStatus todoStatus,int parameter){
-        return todoDao.getTodoItems(todoListId,todoStatus,parameter);
+    public LiveData<List<TodoItem>> getTodoItems(String todoListId, TodoItem.TodoStatus todoStatus,String name,int filterby,int orderby){
+        return todoDao.getTodoItems(todoListId,todoStatus,name,filterby,orderby);
     }
 
-    public LiveData<List<TodoItem>> getTodoItemsByName(String todoListId, String name){
-        return todoDao.getTodoItemsByName(todoListId,name);
+    public LiveData<List<TodoItem>> getAllTodoItems(String todoListId){
+        return todoDao.getAllTodoItems(todoListId);
     }
 
     public Completable insertTodoList(TodoList todoList){

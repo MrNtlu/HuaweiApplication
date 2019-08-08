@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-    def room_version = "2.2.0-alpha01"
+    def room_version = "2.2.0-alpha02"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
@@ -56,31 +56,26 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
 
-    def dagger_version = "2.24"
-    // Dagger2 core
-    implementation "com.google.dagger:dagger:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-
-    // Dagger Android
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'com.google.android.material:material:1.0.0'
 
-    // -------- MOCKITO
+    // JUnit Jupiter
+    def junit_jupiter_version = "5.3.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_jupiter_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
+
+    // Mockito
     def mockito_version = "2.19.0"
     testImplementation "org.mockito:mockito-core:$mockito_version"
 
-    // AndroidX test
     def androidx_test_version = "1.1.0"
     androidTestImplementation "androidx.test:core:$androidx_test_version"
     androidTestImplementation "androidx.test:runner:$androidx_test_version"
 
-    // Architecture components testing
     def androidx_arch_test_version = "2.0.1"
     androidTestImplementation "androidx.arch.core:core-testing:$androidx_arch_test_version"
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
