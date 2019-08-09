@@ -39,8 +39,9 @@ public abstract class BaseAuthActivity extends AppCompatActivity {
     }
 
     protected boolean isEligibleLogin(AppCompatEditText editText){
-        String value=String.valueOf(editText);
-        if (value.trim().isEmpty()) return false;
+        String value=String.valueOf(editText.getText());
+        if (value==null) return false;
+        else if (value.trim().isEmpty()) return false;
         else if (value.length()<6) return false;
         else return true;
     }
